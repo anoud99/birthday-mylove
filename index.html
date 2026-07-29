@@ -1,0 +1,77 @@
+<script>
+const message = `HAPPY BIRTHDAY ❤️
+
+Happy birthday, my love.
+
+My heart feels deeply thankful for you. Even though I haven’t known you for so long, the way you’ve loved me so gently and sincerely has become one of the most beautiful gifts in my life.
+
+Your touch, your care, and the way you make me feel seen and cherished melt my heart every day.
+
+I pray life gives you all the love, success, and happiness your beautiful heart desires, because you truly deserve it all and more.
+
+You are rare, you are precious, and I’m so grateful to love you.
+
+Happy 24th Birthday, my love. ❤️`;
+
+function typeWriter(text, i = 0) {
+  if (i < text.length) {
+    document.getElementById("typing").innerHTML += text.charAt(i);
+    setTimeout(() => typeWriter(text, i + 1), 35);
+  }
+}
+
+function updateCountdown() {
+  const now = new Date();
+
+  // 🎂 Birthday: July 29 (months start from 0, so July = 6)
+  let birthday = new Date(now.getFullYear(), 6, 29, 0, 0, 0);
+
+  // If this year's birthday has passed, count down to next year
+  if (now > birthday) {
+    birthday = new Date(now.getFullYear() + 1, 6, 29, 0, 0, 0);
+  }
+
+  const diff = birthday - now;
+
+  if (diff <= 0) {
+    document.getElementById("countdown").style.display = "none";
+    document.getElementById("birthday").style.display = "block";
+
+    if (document.getElementById("typing").innerHTML === "") {
+      typeWriter(message);
+    }
+    return;
+  }
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
+
+  document.getElementById("days").textContent = days;
+  document.getElementById("hours").textContent = hours;
+  document.getElementById("minutes").textContent = minutes;
+  document.getElementById("seconds").textContent = seconds;
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// ❤️ Floating Hearts
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (15 + Math.random() * 25) + "px";
+  heart.style.animationDuration = (5 + Math.random() * 6) + "s";
+
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 11000);
+}
+
+setInterval(createHeart, 300);
+</script>
