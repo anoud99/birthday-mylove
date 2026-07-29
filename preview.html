@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To My Love ❤️</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,sans-serif}
+body{
+background:linear-gradient(135deg,#fff7f5,#fdeee7,#ffe6ef);
+min-height:100vh;color:#6b4f4f;overflow:hidden;text-align:center
+}
+.sparkles,.hearts{position:fixed;inset:0;pointer-events:none}
+.sparkle{position:absolute;width:4px;height:4px;background:#fff;border-radius:50%;animation:twinkle 4s infinite}
+@keyframes twinkle{50%{opacity:1;transform:scale(2)}}
+.heart{position:absolute;color:#ff8fab;animation:float 8s linear infinite}
+@keyframes float{from{transform:translateY(100vh)}to{transform:translateY(-120px);opacity:0}}
+.container{padding:30px;position:relative;z-index:2}
+.card{max-width:900px;margin:auto;background:rgba(255,255,255,.75);padding:25px;border-radius:25px}
+h1{margin-bottom:20px}
+#countdown{font-size:2rem;font-weight:bold}
+#birthdayContent{display:none;margin-top:20px}
+.typing{white-space:pre-wrap;line-height:1.8;text-align:left;max-width:800px;margin:auto}
+button{margin-top:20px;padding:12px 20px;border:none;border-radius:25px;background:#ff8fab;color:#fff;cursor:pointer}
+.firework{position:fixed;width:8px;height:8px;border-radius:50%}
+</style>
+</head>
+<body>
+<div class="sparkles"></div>
+<div class="hearts"></div>
+
+<div class="container">
+<h1>To My Love ❤️</h1>
+<div class="card">
+<div id="countdown"></div>
+
+<div id="birthdayContent">
+<h2>Happy 24th Birthday My Love 🎉❤️</h2>
+<br>
+<div id="typingText" class="typing"></div>
+<button onclick="toggleMusic()">🎵 Play Music</button>
+</div>
+
+</div>
+</div>
+
+<audio id="bgMusic" loop>
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+for(let i=0;i<80;i++){
+ let s=document.createElement('div');
+ s.className='sparkle';
+ s.style.left=Math.random()*100+'%';
+ s.style.top=Math.random()*100+'%';
+ document.querySelector('.sparkles').appendChild(s);
+}
+
+setInterval(()=>{
+ let h=document.createElement('div');
+ h.className='heart';
+ h.innerHTML='❤';
+ h.style.left=Math.random()*100+'%';
+ h.style.fontSize=(15+Math.random()*25)+'px';
+ document.querySelector('.hearts').appendChild(h);
+ setTimeout(()=>h.remove(),8000);
+},400);
+
+const targetDate=new Date("August 1, 2026 00:00:00").getTime();
+const countdown=document.getElementById("countdown");
+const birthday=document.getElementById("birthdayContent");
+
+const timer=setInterval(()=>{
+ let now=new Date().getTime();
+ let distance=targetDate-now;
+
+ if(distance<=0){
+   clearInterval(timer);
+   countdown.innerHTML="❤️ It's Your Day ❤️";
+   birthday.style.display="block";
+   startTyping();
+   startFireworks();
+   return;
+ }
+
+ let d=Math.floor(distance/(1000*60*60*24));
+ let h=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+ let m=Math.floor((distance%(1000*60*60))/(1000*60));
+ let s=Math.floor((distance%(1000*60))/1000);
+
+ countdown.innerHTML=`${d}d ${h}h ${m}m ${s}s`;
+},1000);
+
+const msg=`HAPPY BIRTHDAY ❤️
+
+Happy birthday, my love.
+
+My heart feels deeply thankful for you. Even though I haven’t known you for so long, the way you’ve loved me so gently and sincerely has become one of the most beautiful gifts in my life.
+
+Your touch, your care, and the way you make me feel seen and cherished melt my heart every day.
+
+I pray life gives you all the love, success, and happiness your beautiful heart desires, because you truly deserve it all and more.
+
+You are rare, you are precious, and I’m so grateful to love you.
+
+Happy 24th Birthday, my love. ❤️`;
+
+function startTyping(){
+ let i=0,t=document.getElementById("typingText");
+ (function type(){
+   if(i<msg.length){
+     t.textContent+=msg.charAt(i++);
+     setTimeout(type,35);
+   }
+ })();
+}
+
+function toggleMusic(){
+ let m=document.getElementById("bgMusic");
+ if(m.paused)m.play(); else m.pause();
+}
+
+function createFirework(){
+ for(let i=0;i<40;i++){
+  let f=document.createElement('div');
+  f.className='firework';
+  f.style.left=Math.random()*100+'vw';
+  f.style.top=Math.random()*80+'vh';
+  f.style.background=`hsl(${Math.random()*360},100%,60%)`;
+  document.body.appendChild(f);
+
+  let x=(Math.random()-0.5)*300;
+  let y=(Math.random()-0.5)*300;
+
+  f.animate([
+   {transform:'translate(0,0)',opacity:1},
+   {transform:`translate(${x}px,${y}px)`,opacity:0}
+  ],{duration:1800});
+
+  setTimeout(()=>f.remove(),1800);
+ }
+}
+function startFireworks(){
+ createFirework();
+ setInterval(createFirework,2000);
+}
+</script>
+</body>
+</html>
